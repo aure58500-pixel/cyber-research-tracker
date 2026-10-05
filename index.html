@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Research Lab</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080c11;
+  color:#f5f7fa;
+}
+
+nav{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  border-bottom:1px solid #1d2732;
+  background:#0b1118;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:700;
+}
+
+nav a{
+  color:#aeb9c5;
+  text-decoration:none;
+  margin-left:25px;
+}
+
+nav a:hover{
+  color:white;
+}
+
+.hero{
+  max-width:1000px;
+  margin:0 auto;
+  padding:110px 25px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border:1px solid #263445;
+  border-radius:999px;
+  color:#8fb4ff;
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+h1{
+  font-size:clamp(42px,7vw,76px);
+  line-height:1;
+  margin:0 0 25px;
+}
+
+.hero p{
+  max-width:680px;
+  margin:0 auto 35px;
+  color:#aeb9c5;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.button{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.primary{
+  background:#2563eb;
+  color:white;
+}
+
+.secondary{
+  border:1px solid #334155;
+  color:white;
+}
+
+section{
+  max-width:1000px;
+  margin:0 auto;
+  padding:30px 25px 100px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:#101720;
+  border:1px solid #1d2732;
+  border-radius:14px;
+  padding:25px;
+}
+
+.card h3{
+  margin-top:0;
+}
+
+.card p{
+  color:#9eabb8;
+  line-height:1.6;
+}
+
+@media(max-width:700px){
+  .cards{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Cyber Research Lab</div>
+
+  <div>
+    <a href="create.html">Créer</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="hero">
+
+  <div class="badge">
+    CYBERSECURITY RESEARCH
+  </div>
+
+  <h1>
+    Research.<br>
+    Test. Analyze.
+  </h1>
+
+  <p>
+    Plateforme expérimentale destinée à créer et
+    analyser des expériences de recherche avec
+    consentement explicite des participants.
+  </p>
+
+  <div class="buttons">
+
+    <a class="button primary" href="create.html">
+      Créer une expérience
+    </a>
+
+    <a class="button secondary" href="admin.html">
+      Tableau de bord
+    </a>
+
+  </div>
+
+</div>
+
+<section>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Consentement</h3>
+      <p>
+        Les participants sont informés avant
+        toute demande d'autorisation.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Firebase</h3>
+      <p>
+        Les événements de test sont enregistrés
+        dans une base Firestore.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Analyse</h3>
+      <p>
+        Un tableau de bord permet de consulter
+        les résultats des expériences.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+</body>
+</html>
