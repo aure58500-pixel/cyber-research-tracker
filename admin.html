@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
+
+<title>Research Dashboard</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+
+  margin:0;
+
+  background:#080c11;
+
+  color:#f5f7fa;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+header{
+
+  height:70px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 6%;
+
+  background:#0b1118;
+
+  border-bottom:
+    1px solid #1d2732;
+}
+
+.logo{
+  font-weight:700;
+}
+
+header a{
+
+  color:#aeb9c5;
+
+  text-decoration:none;
+}
+
+main{
+
+  max-width:1100px;
+
+  margin:auto;
+
+  padding:50px 25px;
+}
+
+h1{
+  margin-top:0;
+}
+
+.subtitle{
+
+  color:#8f9baa;
+
+  margin-bottom:35px;
+}
+
+.actions{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-bottom:25px;
+
+  flex-wrap:wrap;
+}
+
+button{
+
+  border:0;
+
+  border-radius:8px;
+
+  padding:12px 18px;
+
+  background:#2563eb;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:15px;
+}
+
+button.secondary{
+
+  background:#182230;
+
+  border:
+    1px solid #334155;
+}
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:15px;
+
+  margin-bottom:30px;
+}
+
+.stat{
+
+  background:#101720;
+
+  border:
+    1px solid #1d2732;
+
+  border-radius:12px;
+
+  padding:22px;
+}
+
+.stat-title{
+
+  color:#8f9baa;
+
+  font-size:13px;
+
+  margin-bottom:10px;
+}
+
+.stat-value{
+
+  font-size:30px;
+
+  font-weight:700;
+}
+
+.panel{
+
+  background:#101720;
+
+  border:
+    1px solid #1d2732;
+
+  border-radius:12px;
+
+  overflow:hidden;
+}
+
+.panel-header{
+
+  padding:20px;
+
+  border-bottom:
+    1px solid #1d2732;
+
+  font-weight:700;
+}
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+}
+
+th,td{
+
+  padding:14px 18px;
+
+  text-align:left;
+
+  border-bottom:
+    1px solid #1d2732;
+
+  font-size:14px;
+}
+
+th{
+
+  color:#8f9baa;
+
+  font-weight:500;
+}
+
+.status{
+
+  margin-bottom:20px;
+
+  padding:14px;
+
+  border-radius:8px;
+
+  background:#0d141c;
+
+  color:#aeb9c5;
+}
+
+@media(max-width:800px){
+
+  .stats{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:500px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  table{
+    font-size:12px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Cyber Research Lab
+</div>
+
+<a href="index.html">
+Accueil
+</a>
+
+</header>
+
+
+<main>
+
+<h1>
+Research Dashboard
+</h1>
+
+<p class="subtitle">
+Tableau de bord des expériences enregistrées.
+</p>
+
+
+<div class="actions">
+
+<button id="refresh">
+Actualiser
+</button>
+
+<a href="create.html">
+<button class="secondary">
+Créer une expérience
+</button>
+</a>
+
+</div>
+
+
+<div id="status" class="status">
+Connexion à Firebase...
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-title">
+Expériences
+</div>
+
+<div
+  id="total"
+  class="stat-value"
+>
+—
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+Caméra autorisée
+</div>
+
+<div
+  id="camera"
+  class="stat-value"
+>
+—
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+Position autorisée
+</div>
+
+<div
+  id="location"
+  class="stat-value"
+>
+—
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+Dernière expérience
+</div>
+
+<div
+  id="latest"
+  class="stat-value"
+  style="font-size:16px"
+>
+—
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+Événements
+</div>
+
+<div style="overflow-x:auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Caméra</th>
+
+<th>Position</th>
+
+<th>Latitude</th>
+
+<th>Longitude</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="events">
+
+<tr>
+
+<td colspan="6">
+Chargement...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</main>
+
+
+<script type="module">
+
+import {
+  db,
+  collection,
+  getDocs
+}
+from "./firebase.js";
+
+
+const total =
+  document.getElementById("total");
+
+const camera =
+  document.getElementById("camera");
+
+const locationCount =
+  document.getElementById("location");
+
+const latest =
+  document.getElementById("latest");
+
+const events =
+  document.getElementById("events");
+
+const status =
+  document.getElementById("status");
+
+const refresh =
+  document.getElementById("refresh");
+
+
+async function loadData(){
+
+  status.textContent =
+    "Chargement des données...";
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "research-events"
+        )
+      );
+
+
+    const data =
+      snapshot.docs.map(
+        doc => ({
+          id:doc.id,
+          ...doc.data()
+        })
+      );
+
+
+    data.sort(
+      (a,b)=>
+        new Date(b.timestamp || 0) -
+        new Date(a.timestamp || 0)
+    );
+
+
+    const cameraCount =
+      data.filter(
+        item =>
+          item.cameraGranted === true
+      ).length;
+
+
+    const locationCountValue =
+      data.filter(
+        item =>
+          item.locationGranted === true
+      ).length;
+
+
+    total.textContent =
+      data.length;
+
+
+    camera.textContent =
+      cameraCount;
+
+
+    locationCount.textContent =
+      locationCountValue;
+
+
+    latest.textContent =
+      data.length
+        ? new Date(
+            data[0].timestamp
+          ).toLocaleString("fr-FR")
+        : "Aucune";
+
+
+    events.innerHTML = "";
+
+
+    if(!data.length){
+
+      events.innerHTML = `
+        <tr>
+          <td colspan="6">
+            Aucune expérience enregistrée.
+          </td>
+        </tr>
+      `;
+
+    }else{
+
+      data.forEach(item=>{
+
+        const row =
+          document.createElement("tr");
+
+
+        row.innerHTML = `
+
+          <td>
+            ${escapeHtml(
+              item.experimentId || item.id
+            )}
+          </td>
+
+          <td>
+            ${item.cameraGranted ? "Oui" : "Non"}
+          </td>
+
+          <td>
+            ${item.locationGranted ? "Oui" : "Non"}
+          </td>
+
+          <td>
+            ${item.latitude ?? "—"}
+          </td>
+
+          <td>
+            ${item.longitude ?? "—"}
+          </td>
+
+          <td>
+            ${
+              item.timestamp
+                ? new Date(
+                    item.timestamp
+                  ).toLocaleString("fr-FR")
+                : "—"
+            }
+          </td>
+
+        `;
+
+
+        events.appendChild(row);
+
+      });
+
+    }
+
+
+    status.textContent =
+      "✓ Firebase connecté.";
+
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent =
+      "Erreur Firebase : " +
+      (
+        error?.message ||
+        error
+      );
+
+    total.textContent = "—";
+    camera.textContent = "—";
+    locationCount.textContent = "—";
+    latest.textContent = "—";
+
+    events.innerHTML = `
+      <tr>
+        <td colspan="6">
+          Impossible de charger les données.
+        </td>
+      </tr>
+    `;
+
+  }
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value)
+
+    .replaceAll("&","&amp;")
+
+    .replaceAll("<","&lt;")
+
+    .replaceAll(">","&gt;")
+
+    .replaceAll('"',"&quot;")
+
+    .replaceAll("'","&#039;");
+
+}
+
+
+refresh.addEventListener(
+  "click",
+  loadData
+);
+
+
+loadData();
+
+</script>
+
+</body>
+
+</html>
