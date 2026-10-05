@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Créer une expérience</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#080c11;
+  color:#f5f7fa;
+  font-family:Arial,Helvetica,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:min(620px,calc(100% - 40px));
+}
+
+.card{
+  background:#101720;
+  border:1px solid #1d2732;
+  border-radius:16px;
+  padding:35px;
+}
+
+h1{
+  margin-top:0;
+}
+
+p{
+  color:#aeb9c5;
+  line-height:1.6;
+}
+
+label{
+  display:block;
+  margin:25px 0 8px;
+  font-weight:600;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  background:#080c11;
+  border:1px solid #334155;
+  border-radius:8px;
+  color:white;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:0;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+.result{
+  margin-top:25px;
+  padding:18px;
+  background:#080c11;
+  border-radius:9px;
+  display:none;
+}
+
+.result a{
+  color:#60a5fa;
+  word-break:break-all;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Créer une expérience</h1>
+
+<p>
+Crée un lien d'expérience destiné à un participant
+ayant été informé du protocole et ayant donné son
+consentement.
+</p>
+
+<label for="destination">
+URL de destination
+</label>
+
+<input
+  id="destination"
+  type="url"
+  placeholder="https://example.com"
+>
+
+<button id="createButton">
+Créer l'expérience
+</button>
+
+<div id="result" class="result"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const button =
+  document.getElementById("createButton");
+
+const destination =
+  document.getElementById("destination");
+
+const result =
+  document.getElementById("result");
+
+
+button.addEventListener("click", () => {
+
+  const url =
+    destination.value.trim();
+
+
+  if(!url){
+
+    result.style.display="block";
+
+    result.innerHTML =
+      "Veuillez entrer une URL.";
+
+    return;
+  }
+
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+    if(
+      parsed.protocol !== "http:" &&
+      parsed.protocol !== "https:"
+    ){
+      throw new Error();
+    }
+
+  }catch{
+
+    result.style.display="block";
+
+    result.innerHTML =
+      "URL invalide. Utilisez une adresse http:// ou https://.";
+
+    return;
+  }
+
+
+  const experimentId =
+    crypto.randomUUID();
+
+
+  const redirectPath =
+    window.location.pathname
+      .replace("create.html","redirect.html");
+
+
+  const experimentUrl =
+    window.location.origin +
+    redirectPath +
+    "?id=" +
+    encodeURIComponent(experimentId) +
+    "&destination=" +
+    encodeURIComponent(url);
+
+
+  result.style.display="block";
+
+  result.innerHTML = `
+    <strong>Expérience créée</strong>
+    <br><br>
+    <a href="${experimentUrl}" target="_blank">
+      ${experimentUrl}
+    </a>
+  `;
+
+});
+
+</script>
+
+</body>
+</html>
